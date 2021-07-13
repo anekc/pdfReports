@@ -1,19 +1,19 @@
 <div class="container">
     <div class="row">
         <div id="htmlData">
-            <h2>Lista de videojuegos en stock</h2>
+            <h2>Lista de Personajes de Breaking Bad</h2>
             <table class="table table-bordered mt-4">
                 <tr class="table-primary">
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Platform</th>
-                    <th>Reference</th>
+                    <th>Nombre</th>
+                    <th>Apodo</th>
+                    <th>Actor</th>
+                    <th>Ocupación</th>
                 </tr>
-                <tr *ngFor="let game of VIDEOGAMES">
-                    <th>{{game.id}}</th>
-                    <td>{{game.name}}</td>
-                    <td>{{game.platform}}</td>
-                    <td>{{game.reference}}</td>
+                <tr *ngFor="let character of characters ">
+                    <th>{{character.name}}</th>
+                    <td>{{character.nickname}}</td>
+                    <td>{{character.portrayed}}</td>
+                    <td>{{character.occupation}}</td>
                 </tr>
             </table>
         </div>

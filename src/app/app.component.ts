@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { GetAPIService } from './services/get-api.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,44 +10,15 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  VIDEOGAMES = [
-    {
-      id: 1,
-      name: 'Animal Crossing',
-      platform: 'Nintendo Switch',
-      reference: '1-770-736-8031',
-    },
-    {
-      id: 2,
-      name: 'The Legend of Zelda: Ocarina of Time CV',
-      platform: 'Wii U',
-      reference: '1-770-736-2323',
-    },
-    {
-      id: 3,
-      name: 'Metal Gear Solid',
-      platform: 'Playstation (PSX)',
-      reference: '1-4564-736-334',
-    },
-    {
-      id: 4,
-      name: 'ShenMue',
-      platform: 'Sega Dreamcast',
-      reference: '3-770-736-4532',
-    },
-    {
-      id: 5,
-      name: 'Rise of the Tomb Raider',
-      platform: 'Playstation 4',
-      reference: '1-324-736-3245',
-    },
-    {
-      id: 6,
-      name: 'Resident Evil 2',
-      platform: 'Playstation',
-      reference: '1-123-3336-4321',
-    },
-  ];
+  characters : any;
+
+  constructor(private GetAPI: GetAPIService) {}
+
+  ngOnInit(): void {
+    this.getCharacters();
+    
+  }
+ 
  
   downloadPDF() {
     // Extraemos el
@@ -68,7 +41,14 @@ export class AppComponent {
       doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
       return doc;
     }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_juegos.pdf`);
+      docResult.save(`${new Date().toISOString()}_BBCharacters.pdf`);
+    });
+  }
+
+  getCharacters(){
+    this.GetAPI.getAllCharacters().subscribe( data  => {
+      console.log(data);
+      this.characters = data;
     });
   }
 }
